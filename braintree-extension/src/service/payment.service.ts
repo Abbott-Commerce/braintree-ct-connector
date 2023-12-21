@@ -51,6 +51,7 @@ const getPayPalOrderPaymentToken = (payment: Payment) => {
 
 function parseTransactionSaleRequest(payment: Payment): TransactionRequest {
   const transactionSaleRequest = payment?.custom?.fields.transactionSaleRequest;
+  const deviceData = payment?.custom?.fields.deviceData;
   if (!transactionSaleRequest) {
     throw new CustomError(500, 'transactionSaleRequest is missing');
   }
@@ -65,6 +66,9 @@ function parseTransactionSaleRequest(payment: Payment): TransactionRequest {
     request = {
       paymentMethodNonce: transactionSaleRequest,
     };
+  }
+  if (deviceData) {
+    request.deviceData = deviceData
   }
   const storeInVaultOnSuccess =
     !!request?.storeInVaultOnSuccess ||
