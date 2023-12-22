@@ -138,6 +138,17 @@ export async function createCustomPaymentType(
 ): Promise<void> {
   const fieldDefinitions: FieldDefinition[] = [
     {
+      name: `deviceData`,
+      label: {
+        en: `Client device data for fraud dectection`,
+        de: `Client-Gerätedaten zur Betrugserkennung`,
+      },
+      type: {
+        name: 'String',
+      },
+      required: false,
+    },
+    {
       name: `LocalPaymentMethodsPaymentId`,
       label: {
         en: `Payment Id of a local payment method (Bancontact, iDEAL, ...)`,

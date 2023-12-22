@@ -124,6 +124,7 @@ describe('Testing Braintree Transaction Sale', () => {
           custom: {
             fields: {
               transactionSaleRequest: nonce,
+              deviceData: 'fake-device-data-string',
             },
           },
         },
