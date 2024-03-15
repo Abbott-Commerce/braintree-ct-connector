@@ -68,7 +68,7 @@ function parseTransactionSaleRequest(payment: Payment): TransactionRequest {
     };
   }
   if (deviceData) {
-    request.deviceData = deviceData
+    request.deviceData = deviceData;
   }
   const storeInVaultOnSuccess =
     !!request?.storeInVaultOnSuccess ||
@@ -143,7 +143,7 @@ function findSuitableTransactionId(
 function getPaymentMethodHint(response: Transaction): string {
   switch (response.paymentInstrumentType) {
     case 'credit_card':
-      return `${response?.creditCard?.cardType} ${response?.creditCard?.maskedNumber}`;
+      return response?.creditCard?.cardType ?? '';
     case 'paypal_account':
       return response?.paypalAccount?.payerEmail ?? '';
     case 'venmo_account':
