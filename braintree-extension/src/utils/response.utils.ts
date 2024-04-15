@@ -125,12 +125,15 @@ export const handleError = (
     error instanceof Error && 'message' in error
       ? error.message
       : 'Unknown error';
+  const errorCode = error instanceof Error && 'statusCode' in error
+  ? error.statusCode
+  : 'Unknown error code';
   const updateActions: UpdateActions = [];
   updateActions.push({
     action: transactionId ? 'setTransactionCustomField' : 'setCustomField',
     transactionId: transactionId,
     name: `${requestName}Response`,
-    value: JSON.stringify({ success: false, message: errorMessage }),
+    value: JSON.stringify({ success: false, message: errorMessage, code: errorCode }),
   });
   updateActions.push({
     action: transactionId ? 'setTransactionCustomField' : 'setCustomField',
