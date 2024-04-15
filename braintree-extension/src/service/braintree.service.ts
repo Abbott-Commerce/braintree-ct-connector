@@ -78,7 +78,10 @@ export const refund = async (transactionId: string, amount?: string) => {
   const response = await gateway.transaction.refund(transactionId, amount);
   logResponse('refund', response);
   if (!response.success) {
-    throw new CustomError(500, response.message);
+    //Taking the first error code given by braintree
+    let errorCode = response.errors?.deepErrors()[0]?.code
+    logger.warn(`Error code from Braintree ${errorCode}`);
+    throw new CustomError(errorCode, response.message);
   }
   return response.transaction;
 };
